@@ -5,13 +5,16 @@ const video = document.querySelector('#vimeo-player');
 const player = new Player(video);
 
 player.ready().then(() => {
-  player.on('timeupdate', throttle(function(data) {
-    const currentTime = data.seconds;
-    localStorage.setItem('videoplayer-current-time', currentTime);
-  }, 1000));
+  player.on(
+    'timeupdate',
+    throttle(function (data) {
+      const currentTime = data.seconds;
+      localStorage.setItem('videoplayer-current-time', currentTime);
+    }, 1000)
+  );
 });
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
   const currentTime = localStorage.getItem('videoplayer-current-time');
   if (currentTime) {
     player.setCurrentTime(currentTime).catch(error => {
